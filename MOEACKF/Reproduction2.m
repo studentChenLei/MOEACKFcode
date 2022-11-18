@@ -29,9 +29,9 @@ function [OffDec,OffMask] = Reproduction2(ParentDec,ParentMask,NSV,SV,REAL)
             for i=1:N
                 NonZero=OffMask(i,:);
                 OffDec(i,NonZero)=SBXhalf(Parent1(i,NonZero),Parent2(i,NonZero));
-                OffDec(i,NonZero)=PM(OffDec(i,NonZero));
+                OffDec(i,NonZero)=PM(OffDec(i,NonZero),NonZero);
                 OffDec(i,~NonZero)=SBXhalf(Parent1(i,~NonZero),Parent2(i,~NonZero));
-                OffDec(i,~NonZero)=PM(OffDec(i,~NonZero));
+                OffDec(i,~NonZero)=PM(OffDec(i,~NonZero),~NonZero);
             end                       
     else
         OffDec = ones(size(OffMask));
@@ -53,13 +53,13 @@ function Offspring=SBXhalf(Parent1,Parent2)
 end
 
 
- function Offspring=PM(Offspring)
+ function Offspring=PM(Offspring,indexSite)
     Problem = PROBLEM.Current();
     [N,D]=size(Offspring);
     [proM,disM] = deal(1,20);
     % Polynomial mutation
-    Lower = repmat(Problem.lower(1:D),N,1);
-    Upper = repmat(Problem.upper(1:D),N,1);
+    Lower = repmat(Problem.lower(indexSite),N,1);
+    Upper = repmat(Problem.upper(indexSite),N,1);
     Site  = rand(N,D) < proM/D;
     mu    = rand(N,D);
     temp  = Site & mu<=0.5;
