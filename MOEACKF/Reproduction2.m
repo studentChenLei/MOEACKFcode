@@ -53,7 +53,7 @@ function Offspring=SBXhalf(Parent1,Parent2)
 end
 
 
- function Offspring=PM(Offspring,indexSite)
+function Offspring=PM(Offspring,indexSite)
     Problem = PROBLEM.Current();
     [N,D]=size(Offspring);
     [proM,disM] = deal(1,20);

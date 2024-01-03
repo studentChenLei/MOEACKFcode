@@ -61,6 +61,7 @@ classdef MOEACKF < ALGORITHM
                    Offspring1=SOLUTION(OffDec1.*OffMask1);
                else
                    [OffDec1,OffMask1,Offspring1]=deal([]);
+                   len1=0;
                end
                % dual grouping 
                if ~isempty(Pop2)
@@ -71,7 +72,7 @@ classdef MOEACKF < ALGORITHM
                   [OffDec2,OffMask2,Offspring2]= deal([]);
                end
                [Population,Dec,Mask,sRatio] = EnvironmentalSelection([Population,Offspring1,Offspring2],[Dec;OffDec1;OffDec2],[Mask;OffMask1;OffMask2],Problem.N,length(Population),len1);
-               rho = (rho+sRatio)/2; 
+               rho = (rho+sRatio)/2;           
             end
         end      
     end 
